@@ -126,7 +126,7 @@ void roateRobotToMove(ArRobot *robot, ArPose *target)
 	while (anglediff >= 0.8){
 		printf("Angle to Rotate: %.3lf\n", angle2go);
 		printf("R-Theta: %.3lf, T-Theta: %.3lf\n", robot->getTh(), target->getTh());
-		double step = (anglediff >= 5) ? 10 : 1;
+		double step = (anglediff >= 20) ? 50 : 1;
 		if (robot->getTh() > target->getTh()) setRobotVelandRotVel(robot, 0, -step);
 		else setRobotVelandRotVel(robot, 0, step);
 		anglediff = abs(robot->getTh() - angle2go);
@@ -139,7 +139,7 @@ void rotateRobotToFinish(ArRobot *robot, ArPose *target)
 	double anglediff = abs(robot->getTh() - target->getTh());
 	while (anglediff >= 3){
 		printf("R-Theta: %.3lf, T-Theta: %.3lf\n", robot->getTh(), target->getTh());
-		double step = (anglediff >= 15) ? 10 : 1;
+		double step = (anglediff >= 20) ? 50 : 1;
 		if (robot->getTh() > target->getTh()) setRobotVelandRotVel(robot, 0, -step);
 		else setRobotVelandRotVel(robot, 0, step);
 		anglediff = abs(robot->getTh() - target->getTh());
