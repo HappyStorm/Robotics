@@ -15,7 +15,7 @@
 //
 //bool double_equals(double a, double b);
 //bool isObstacleBySonar(ArRobot *robot);
-//void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot);
+//void setRobotVelandRotVel(ArRobot *robot, double vel, double rot);
 //void printFrontSonarRange(ArRobot *robot);
 //void printSonarData(ArRobot *robot, int sonarID);
 //
@@ -30,23 +30,23 @@
 //void CallbackContainer::callback_up(ArRobot *robot)
 //{
 //	printf("===<UP Callback Function>===\n");
-//	if (isObstacleBySonar(robot)) SetRobotVelandRotVel(robot, 0, robot->getRotVel());
-//	else SetRobotVelandRotVel(robot, 500, robot->getRotVel());
+//	if (isObstacleBySonar(robot)) setRobotVelandRotVel(robot, 0, robot->getRotVel());
+//	else setRobotVelandRotVel(robot, 500, robot->getRotVel());
 //}
 //void CallbackContainer::callback_down(ArRobot *robot)
 //{
 //	printf("===<Down Callback Function>===\n");
-//	SetRobotVelandRotVel(robot, -500, robot->getRotVel());
+//	setRobotVelandRotVel(robot, -500, robot->getRotVel());
 //}
 //void CallbackContainer::callback_left(ArRobot *robot)
 //{
 //	printf("===<Left Callback Function>===\n");
-//	SetRobotVelandRotVel(robot, robot->getVel(), 25);
+//	setRobotVelandRotVel(robot, robot->getVel(), 25);
 //}
 //void CallbackContainer::callback_right(ArRobot *robot)
 //{
 //	printf("===<Right Callback Function>===\n");
-//	SetRobotVelandRotVel(robot, robot->getVel(), -25);
+//	setRobotVelandRotVel(robot, robot->getVel(), -25);
 //}
 //
 //
@@ -87,8 +87,8 @@
 //	keyHandler.addKeyHandler(keyHandler.RIGHT, &functor_right);
 //
 //	while (true){
-//		if (isObstacleBySonar(&robot)) SetRobotVelandRotVel(&robot, 0, robot.getRotVel()); // robot.stop();
-//		if (keyHandler.getKey() == -1) SetRobotVelandRotVel(&robot, 0, 0);
+//		if (isObstacleBySonar(&robot)) setRobotVelandRotVel(&robot, 0, robot.getRotVel()); // robot.stop();
+//		if (keyHandler.getKey() == -1) setRobotVelandRotVel(&robot, 0, 0);
 //
 //		printFrontSonarRange(&robot);
 //		printSonarData(&robot, 3);
@@ -114,7 +114,7 @@
 //	else return false;
 //}
 //
-//void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot)
+//void setRobotVelandRotVel(ArRobot *robot, double vel, double rot)
 //{
 //	robot->lock();
 //	robot->setVel(vel), robot->setRotVel(rot);

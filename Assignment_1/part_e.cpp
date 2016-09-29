@@ -18,10 +18,11 @@ using namespace std;
 
 bool double_equals(double a, double b, double epi);
 bool isObstacleBySonar(ArRobot *robot);
-void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot);
+void setRobotVelandRotVel(ArRobot *robot, double vel, double rot);
 void printFrontSonarRange(ArRobot *robot);
 void printSonarData(ArRobot *robot, int sonarID);
 void printRobotandTargetLocation(ArRobot *robot, ArPose *target);
+void 
 
 int main(int argc, char **argv)
 {
@@ -45,7 +46,7 @@ int main(int argc, char **argv)
 	
 	printf("You may press escape to exit.\n");
 	while (true){
-		if (isObstacleBySonar(&robot)) SetRobotVelandRotVel(&robot, 0, robot.getRotVel()); // robot.stop();
+		if (isObstacleBySonar(&robot)) setRobotVelandRotVel(&robot, 0, robot.getRotVel()); // robot.stop();
 		double tx, ty, tth, dis2go, angle2go;
 		scanf("%lf %lf %lf", &tx, &ty, &tth);
 		ArPose *target = new ArPose(tx * 1000, ty * 1000, tth*RADIAN2DEGREE);
@@ -58,10 +59,10 @@ int main(int argc, char **argv)
 		while (!double_equals(robot.getTh(), angle2go, 2)){
 			printf("1 RobotTheta: %.3lf, TargetTheta: %.31lf\n", robot.getTh(), target->getTh());
 			double step = (abs(robot.getTh() - target->getTh()) <= 10) ? 2 : 15;
-			if (robot.getTh() > target->getTh()) SetRobotVelandRotVel(&robot, 0, -step);
-			else SetRobotVelandRotVel(&robot, 0, step);
+			if (robot.getTh() > target->getTh()) setRobotVelandRotVel(&robot, 0, -step);
+			else setRobotVelandRotVel(&robot, 0, step);
 		}
-		SetRobotVelandRotVel(&robot, robot.getVel(), 0);
+		setRobotVelandRotVel(&robot, robot.getVel(), 0);
 		printf("Dis: %lf\n", dis2go);
 
 		robot.move(dis2go-175);
@@ -71,18 +72,18 @@ int main(int argc, char **argv)
 		printf("Left Dis = %.lf\n", dis2go);
 		while (dis2go >= 300){
 			printf("Dis: %lf\n", dis2go);
-			SetRobotVelandRotVel(&robot, 25, 0);
+			setRobotVelandRotVel(&robot, 25, 0);
 			dis2go = robot.findDistanceTo(*target);
 		}
-		SetRobotVelandRotVel(&robot, 0, 0);
+		setRobotVelandRotVel(&robot, 0, 0);
 
 		while (!double_equals(robot.getTh(), target->getTh(), 2.5)){
 			printf("2 RobotTheta: %.3lf, TargetTheta: %.31lf\n", robot.getTh(), target->getTh());
 			double step = (abs(robot.getTh() - target->getTh()) <= 10) ? 2 : 15;
-			if (robot.getTh() > target->getTh()) SetRobotVelandRotVel(&robot, 0, -step);
-			else SetRobotVelandRotVel(&robot, 0, step);
+			if (robot.getTh() > target->getTh()) setRobotVelandRotVel(&robot, 0, -step);
+			else setRobotVelandRotVel(&robot, 0, step);
 		}
-		SetRobotVelandRotVel(&robot, 0, 0);
+		setRobotVelandRotVel(&robot, 0, 0);
 		printFrontSonarRange(&robot);
 		printSonarData(&robot, 3);
 		printf("Robot(X, Y, Theta): (%6.3lf, %6.3lf, %6.3lf)\n\n", robot.getX(), robot.getY(), robot.getTh());
@@ -108,7 +109,7 @@ bool isObstacleBySonar(ArRobot *robot)
 	else return false;
 }
 
-void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot)
+void setRobotVelandRotVel(ArRobot *robot, double vel, double rot)
 {
 	robot->lock();
 	robot->setVel(vel), robot->setRotVel(rot);
