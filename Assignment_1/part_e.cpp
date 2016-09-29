@@ -127,7 +127,7 @@ void roateRobotToMove(ArRobot *robot, ArPose *target)
 	while (anglediff >= 0.8){
 		printf("Angle to Rotate: %.3lf\n", angle2go);
 		printf("R-Theta: %.3lf, T-Theta: %.3lf\n", robot->getTh(), target->getTh());
-		double step = (anglediff >= 20) ? (anglediff<50 ? 20 : 50) : (anglediff<5 ? 1 : 10);
+		double step = (anglediff >= 20) ? (anglediff<50 ? 20 : 50) : (anglediff<4 ? 1 : 10);
 		if (ccw > cw) setRobotVelandRotVel(robot, 0, -step);
 		else setRobotVelandRotVel(robot, 0, step);
 		anglediff = abs(robot->getTh() - angle2go);
@@ -140,7 +140,7 @@ void rotateRobotToFinish(ArRobot *robot, ArPose *target)
 	double anglediff = abs(robot->getTh() - target->getTh());
 	while (anglediff >= 2){
 		printf("R-Theta: %.3lf, T-Theta: %.3lf\n", robot->getTh(), target->getTh());
-		double step = (anglediff >= 20) ? (anglediff<50 ? 20 : 50) : (anglediff<5 ? 1 : 10);
+		double step = (anglediff >= 20) ? (anglediff<50 ? 20 : 50) : (anglediff<4 ? 1 : 10);
 		if (robot->getTh() > target->getTh()) setRobotVelandRotVel(robot, 0, -step);
 		else setRobotVelandRotVel(robot, 0, step);
 		anglediff = abs(robot->getTh() - target->getTh());
@@ -150,11 +150,11 @@ void rotateRobotToFinish(ArRobot *robot, ArPose *target)
 
 void moveRobotFast(ArRobot *robot, ArPose *target)
 {
-	double dis2go = robot->findDistanceTo(*target) - 400;
-	while (dis2go >= 700){
+	double dis2go = robot->findDistanceTo(*target)-600;
+	while (dis2go >= 600){
 		printf("Dis: %lf\n", dis2go);
 		setRobotVelandRotVel(robot, 800, 0);
-		dis2go = robot->findDistanceTo(*target) - 400;
+		dis2go = robot->findDistanceTo(*target)-600;
 	}
 	setRobotVelandRotVel(robot, 0, 0);
 }
@@ -162,9 +162,9 @@ void moveRobotFast(ArRobot *robot, ArPose *target)
 void moveRobotSlow(ArRobot *robot, ArPose *target)
 {
 	double dis2go = robot->findDistanceTo(*target);
-	while (dis2go >= 120){
+	while (dis2go >= 150){
 		printf("Dis: %lf\n", dis2go);
-		setRobotVelandRotVel(robot, 100, 0);
+		setRobotVelandRotVel(robot, 200, 0);
 		dis2go = robot->findDistanceTo(*target);
 	}
 	setRobotVelandRotVel(robot, 0, 0);
