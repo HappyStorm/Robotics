@@ -22,7 +22,7 @@ void setRobotVelandRotVel(ArRobot *robot, double vel, double rot);
 void printFrontSonarRange(ArRobot *robot);
 void printSonarData(ArRobot *robot, int sonarID);
 void printRobotandTargetLocation(ArRobot *robot, ArPose *target);
-void 
+void roateRobot(ArRobot *robot, ArPose *target);
 
 int main(int argc, char **argv)
 {
@@ -137,4 +137,19 @@ void printRobotandTargetLocation(ArRobot *robot, ArPose *target)
 {
 	printf("Robot(X, Y, Theta): (%6.3lf, %6.3lf, %6.3lf)\n", robot->getX(), robot->getY(), robot->getTh());
 	printf("Target(X, Y, Theta): (%6.3lf, %6.3lf, %6.3lf)\n", target->getX(), target->getY(), target->getTh());
+}
+
+void roateRobot(ArRobot *robot, ArPose *target)
+{
+	double dis2go = robot->findDistanceTo(*target),
+		   angle2go = robot->findAngleTo(*target);
+
+	printf("Angle to Rotate: %lf\n", angle2go);
+	while (!double_equals(robot->getTh(), angle2go, 2)){
+		printf("R-Theta: %.3lf, T-Theta: %.3lf\n", robot->getTh(), target->getTh());
+		double step = (abs(robot->getTh() - target->getTh()) <= 10) ? 2 : 15;
+		if (robot->getTh() > target->getTh()) setRobotVelandRotVel(robot, 0, -step);
+		else setRobotVelandRotVel(robot, 0, step);
+	}
+	setRobotVelandRotVel(robot, robot->getVel(), 0);
 }
