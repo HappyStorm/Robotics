@@ -19,8 +19,9 @@ using namespace std;
 bool double_equals(double a, double b, double epi);
 bool isObstacleBySonar(ArRobot *robot);
 void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot);
-void PrintFrontSonarRange(ArRobot *robot);
-void PrintSonarData(ArRobot *robot, int sonarID);
+void printFrontSonarRange(ArRobot *robot);
+void printSonarData(ArRobot *robot, int sonarID);
+
 
 int main(int argc, char **argv)
 {
@@ -87,8 +88,8 @@ int main(int argc, char **argv)
 			else SetRobotVelandRotVel(&robot, 0, step);
 		}
 		SetRobotVelandRotVel(&robot, 0, 0);
-		PrintFrontSonarRange(&robot);
-		PrintSonarData(&robot, 3);
+		printFrontSonarRange(&robot);
+		printSonarData(&robot, 3);
 		printf("Robot(X, Y, Theta): (%6.3lf, %6.3lf, %6.3lf)\n\n", robot.getX(), robot.getY(), robot.getTh());
 		robot.moveTo(*new ArPose(0, 0, 0));
 		ArUtil::sleep(300);
@@ -119,7 +120,7 @@ void SetRobotVelandRotVel(ArRobot *robot, double vel, double rot)
 	robot->unlock();
 }
 
-void PrintFrontSonarRange(ArRobot *robot)
+void printFrontSonarRange(ArRobot *robot)
 {
 	printf("Sonar(2): %10d\n", robot->getSonarReading(2)->getRange());
 	printf("Sonar(3): %10d\n", robot->getSonarReading(3)->getRange());
@@ -127,7 +128,7 @@ void PrintFrontSonarRange(ArRobot *robot)
 	printf("Sonar(5): %10d\n", robot->getSonarReading(5)->getRange());
 }
 
-void PrintSonarData(ArRobot *robot, int sonarID)
+void printSonarData(ArRobot *robot, int sonarID)
 {
 	printf("Sonar %2d:\n", sonarID);
 	printf("\tSensorDX: %8.3lf \t SensorDY: %12.3lf\n", robot->getSonarReading(sonarID)->getSensorDX(), robot->getSonarReading(sonarID)->getSensorDY());
