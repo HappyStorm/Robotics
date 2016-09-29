@@ -59,7 +59,6 @@ int main(int argc, char **argv)
 		
 		roateRobotToMove(&robot, target);
 		moveRobotFast(&robot, target);
-		// roateRobotToMove(&robot, target);
 		moveRobotSlow(&robot, target);
 		rotateRobotToFinish(&robot, target);
 
